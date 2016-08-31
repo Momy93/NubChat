@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="delete">Elimina</string>
+    <string name="settings">Impostazioni</string>
+    <string name="subscribe">Apri</string>
+    <string name="unsubscribe">Chiudi</string>
+    <string name="add">Aggiungi</string>
+    <string name="save">Salva</string>
+    <string name="about">Info</string>
+    <string name="clean_group">Pulire il gruppo attuale?</string>
+    <string name="getKeys">Ottieni le tue chiavi su <a href="https://www.pubnub.com/">PubNub</a></string>
+    <string name="username">Nome</string>
+    <string name="loading">Caricamento</string>
+    <string name="new_channel">Nuovo canale</string>
+    <string name="cancel">Annulla</string>
+    <string name="username_error">Il nome utente non può essere vuoto</string>
+    <string name="public_cancel">Canale publico</string>
+    <string name="credentials_error">deve essre lungo 42 caratteri</string>
+</resources>

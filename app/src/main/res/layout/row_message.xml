@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="fill_parent"
+    android:orientation="vertical"
+    android:id="@+id/linearLayout">
+
+
+    <RelativeLayout
+        android:orientation="vertical"
+        android:background="@drawable/magic_background"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp">
+
+        <TextView
+            android:id="@+id/senderTextView"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#000" />
+        <TextView
+            android:id="@+id/contentTextView"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/senderTextView"
+            android:text=""
+            android:textColor="#000" />
+
+        <TextView
+            android:id="@+id/timeTextView"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/contentTextView"
+            android:layout_alignParentRight="false"
+            android:layout_alignParentLeft="false"
+            android:layout_toLeftOf="@+id/statusImageView" />
+
+        <ImageView
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:id="@+id/statusImageView"
+            android:src="@mipmap/sending_icon"
+            android:layout_alignParentRight="true"
+            android:layout_alignBottom="@+id/timeTextView"
+            android:layout_marginBottom="3dp"
+            android:layout_marginLeft="2dp" />
+    </RelativeLayout>
+</LinearLayout>
