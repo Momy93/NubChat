@@ -43,11 +43,9 @@ public class Channel
         return name;
     }
     public void setName(String name) {this.name = name;}
-    public String toString()
-    {
+    /*public String toString(){
         JSONObject result = new JSONObject();
-        try
-        {
+        try{
             result.put("name", name);
             result.put("status", status);
             result.put("type",""+type);
@@ -55,5 +53,5 @@ public class Channel
         }
         catch (JSONException e) {e.printStackTrace();}
         return result.toString();
-    }
+    }*/
 }

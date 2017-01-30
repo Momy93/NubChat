@@ -21,7 +21,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/channelsListView"
         android:layout_centerHorizontal="true"
-        android:divider="@color/magicBlue"
         />
 
 </RelativeLayout>

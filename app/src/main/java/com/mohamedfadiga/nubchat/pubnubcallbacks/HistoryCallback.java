@@ -1,6 +1,6 @@
 package com.mohamedfadiga.nubchat.pubnubcallbacks;
 
-import com.fasterxml.jackson.databind.JsonNode;
+import com.google.gson.JsonObject;
 import com.mohamedfadiga.nubchat.services.BackgroundService;
 import com.mohamedfadiga.nubchat.utils.DatabaseHelper;
 import com.pubnub.api.callbacks.PNCallback;
@@ -10,14 +10,13 @@ import com.pubnub.api.models.consumer.history.PNHistoryItemResult;
 import com.pubnub.api.models.consumer.history.PNHistoryResult;
 import java.util.List;
 
-public class HistoryCallback extends PNCallback<PNHistoryResult>
-{
+public class HistoryCallback extends PNCallback<PNHistoryResult>{
     private History history;
     private BackgroundService service;
     private String username, channelName;
 
-    public HistoryCallback(History history, BackgroundService service, String username, String channelName)
-    {
+    public HistoryCallback(History history, BackgroundService service, String username, String channelName){
+        System.out.println("creato callback");
         this.history = history;
         this.service = service;
         this.username = username;
@@ -25,17 +24,14 @@ public class HistoryCallback extends PNCallback<PNHistoryResult>
     }
 
     @Override
-    public void onResponse(PNHistoryResult result, PNStatus status)
-    {
-        if (!status.isError())
-        {
+    public void onResponse(PNHistoryResult result, PNStatus status){
+        if (!status.isError()){
             DatabaseHelper db = DatabaseHelper.getInstance(service);
             List<PNHistoryItemResult> messages = result.getMessages();
-            for (PNHistoryItemResult iR:messages)
-            {
+            for (PNHistoryItemResult iR:messages){
                 try {
-                    JsonNode n = iR.getEntry();
-                    String sender = n.get("sender").asText();
+                    JsonObject n = iR.getEntry().getAsJsonObject();
+                    String sender = n.get("sender").getAsString();
                     if (sender.equals(username)) continue;
                     service.newMessage(db.saveMessage(n,channelName.equals(username)?sender:channelName, iR.getTimetoken()));
                 }

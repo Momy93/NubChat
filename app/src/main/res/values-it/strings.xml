@@ -16,4 +16,6 @@
     <string name="username_error">Il nome utente non può essere vuoto</string>
     <string name="public_cancel">Canale publico</string>
     <string name="credentials_error">deve essre lungo 42 caratteri</string>
+    <string name="settings_war">***ATTENZIONE!*** DEVI ATTIVARE &#34;STORAGE &#38; PLAYBACK&#34; E &#34;STREAM CONTROLLER&#34; NEL TUO ACCOUNT PUBNUB PER QUESTE KEY</string>
+    <string name="choose_username">Scegli un nome utente</string>
 </resources>

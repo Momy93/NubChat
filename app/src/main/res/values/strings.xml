@@ -18,4 +18,6 @@
     <string name="public_cancel">Public Chancel</string>
     <string name="username_error">Username can\'t be empty</string>
     <string name="credentials_error">length must bee 42</string>
+    <string name="settings_war">***NOTE*** YOU MUST ENABLE &#34;STORAGE &#38; PLAYBACK&#34; AND &#34;STREAM CONTROLLER&#34; IN YOUR PUBNUB SETTINGS FOR THESE KEYS</string>
+    <string name="choose_username">Choose a username</string>
 </resources>

@@ -14,8 +14,7 @@ public class ServiceBinder
     private Activity activity;
     private static int boundActivities = 0;
 
-    private ServiceConnection connection = new ServiceConnection()
-    {
+    private ServiceConnection connection = new ServiceConnection(){
         @Override
         public void onServiceConnected(ComponentName className, IBinder service)
         {

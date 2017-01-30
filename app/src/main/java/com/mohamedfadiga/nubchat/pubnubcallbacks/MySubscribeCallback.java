@@ -1,6 +1,6 @@
 package com.mohamedfadiga.nubchat.pubnubcallbacks;
 
-import com.fasterxml.jackson.databind.JsonNode;
+import com.google.gson.JsonObject;
 import com.mohamedfadiga.nubchat.services.BackgroundService;
 import com.mohamedfadiga.nubchat.utils.DatabaseHelper;
 import com.pubnub.api.PubNub;
@@ -9,8 +9,7 @@ import com.pubnub.api.models.consumer.PNStatus;
 import com.pubnub.api.models.consumer.pubsub.PNMessageResult;
 import com.pubnub.api.models.consumer.pubsub.PNPresenceEventResult;
 
-public class MySubscribeCallback extends SubscribeCallback
-{
+public class MySubscribeCallback extends SubscribeCallback{
     private BackgroundService service;
     private  String username;
 
@@ -25,12 +24,13 @@ public class MySubscribeCallback extends SubscribeCallback
     @Override
     public void message(PubNub pubnub, PNMessageResult r){
         DatabaseHelper db = DatabaseHelper.getInstance(service);
-        String sender = r.getMessage().get("sender").asText();
+        JsonObject o = r.getMessage().getAsJsonObject();
+        String sender = o.get("sender").getAsString();
         if(sender.equals(username))return;
-        JsonNode n = r.getMessage();
-        String channelName = r.getActualChannel();
-        if(channelName == null)channelName = n.get("sender").asText();
-        service.newMessage(db.saveMessage(n, channelName, r.getTimetoken()));
+        String channelName = r.getSubscription();
+        if(channelName == null)channelName = sender;
+        else channelName = r.getChannel();
+        service.newMessage(db.saveMessage(o, channelName, r.getTimetoken()));
     }
 
     @Override

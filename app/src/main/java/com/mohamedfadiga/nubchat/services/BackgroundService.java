@@ -42,7 +42,7 @@ import  android.os.Handler;
 public class BackgroundService extends Service
 {
     private ServiceCallbacks serviceCallbacks;
-    private static final String ON_NUBCHAT = "onNubChat";
+    /*private static final String ON_NUBCHAT = "onNubChat";*/
     private String username ;
     private String pubKey;
     private String subKey;
@@ -66,8 +66,7 @@ public class BackgroundService extends Service
         }
     };
 
-    public boolean deleteChannel(String channelName)
-    {
+    public boolean deleteChannel(String channelName){
         try{
             pubNub.removeChannelsFromChannelGroup().channelGroup(username).channels(Collections.singletonList(channelName)).sync();
             return true;
@@ -77,8 +76,7 @@ public class BackgroundService extends Service
         }
     }
 
-    public boolean registerChannel(Channel channel, String name)
-    {
+    public boolean registerChannel(Channel channel, String name){
         if(channel.getType() == Channel.PRIVATE){
             db.addChannel(channel);
             pubNub.subscribe()
@@ -112,8 +110,7 @@ public class BackgroundService extends Service
     }
 
     @Override
-    public void onCreate()
-    {
+    public void onCreate(){
         handler =new Handler(Looper.getMainLooper());
         online = (isNetworkAvailable() && hasInternetConnection());
         db = DatabaseHelper.getInstance(this);
@@ -121,8 +118,7 @@ public class BackgroundService extends Service
         username = sharedPref.getString("username", null);
         subKey = sharedPref.getString("subKey", null);
         pubKey = sharedPref.getString("pubKey", null);
-        if (!(username == null || subKey == null || pubKey == null))
-        {
+        if (!(username == null || subKey == null || pubKey == null)){
             PNConfiguration pnc = new PNConfiguration();
             pnc.setSubscribeKey(subKey);
             pnc.setPublishKey(pubKey);
@@ -134,10 +130,9 @@ public class BackgroundService extends Service
         }
     }
 
-    public void  sendMessage(final Message message)
-    {
+    public void  sendMessage(final Message message){
         pubNub.publish()
-            .message(new SerializableMessage(message))
+            .message(message.toJson())
             .channel(message.getChannelName()).shouldStore(true).async(new PNCallback<PNPublishResult>(){
                 @Override
                 public void onResponse(PNPublishResult result, PNStatus status){
@@ -150,7 +145,7 @@ public class BackgroundService extends Service
             });
     }
 
-    public class SerializableMessage{
+    /*public class SerializableMessage{
         private int type;
         private String text, sender, url, latLon;
 
@@ -167,10 +162,9 @@ public class BackgroundService extends Service
         public String getSender() {return sender;}
         public String getText() {return text;}
         public String getUrl() {return url;}
-    }
+    }*/
 
-    private void update()
-    {
+    private void update(){
         new Thread(new Runnable()
         {
             @Override
@@ -179,26 +173,28 @@ public class BackgroundService extends Service
                 ArrayList<Channel> channels = db.getChannels();
                 ArrayList<Message> messages = db.getUnsentMessages();
                 for(Message message: messages)sendMessage(message);
-                for(Channel channel: channels)
-                {
-                    if(channel.getType() == 1)
-                    {
-                        Message message = db.getMessage(channel.getLastReceivedId());
-                        History history = pubNub.history();
-                        history.channel(channel.getName()).start(message == null ? 0 : message.getTimetoken() + 1).reverse(true)
-                            .includeTimetoken(true).async(new HistoryCallback(history,BackgroundService.this, username, channel.getName()));
+                try{
+                    for(Channel channel : channels){
+                        if(channel.getType() == 1){
+
+                            Message message = db.getMessage(channel.getLastReceivedId());
+                            History history = pubNub.history();
+                            history.channel(channel.getName()).start(message == null ? 0 : message.getTimetoken() + 1).reverse(true).includeTimetoken(true).async(new HistoryCallback(history, BackgroundService.this, username, channel.getName()));
+                        }
                     }
+
+                    History history = pubNub.history().channel(username).start(db.getLastTimetoken() + 1).reverse(true).includeTimetoken(true);
+                    history.async(new HistoryCallback(history, BackgroundService.this, username, username));
                 }
-                History history = pubNub.history()
-                    .channel(username)
-                    .start(db.getLastTimetoken()+1)
-                    .reverse(true)
-                    .includeTimetoken(true);
-                history.async(new HistoryCallback(history, BackgroundService.this, username, username));
+                catch(Exception e){
+                    makeToast("Please enable history in your PubNub account");
+                }
                 pubNub.subscribe()
                     .channelGroups(Collections.singletonList(username))
                     .channels(Collections.singletonList(username))
                     .execute();
+
+
             }
         }).start();
     }
@@ -216,8 +212,7 @@ public class BackgroundService extends Service
         }
     }*/
 
-    public void makeToast(final  String msg)
-    {
+    public void makeToast(final  String msg){
         handler.post(new Runnable(){
             @Override
             public void run(){
@@ -233,13 +228,12 @@ public class BackgroundService extends Service
         SharedPreferences.Editor editor = sharedPref.edit();
         boolean result = true;
 
-        if(username != null)
-        {
+        if(username != null){
             if((cleanGroup)&&(!cleanGroup())){
                     result = false;
                     makeToast("Cannot clean group");
                 }
-            else pubNub.stop();
+            else pubNub.disconnect();
         }
 
         if(result){
@@ -267,8 +261,7 @@ public class BackgroundService extends Service
         return START_STICKY;
     }
 
-    private boolean cleanGroup()
-    {
+    private boolean cleanGroup(){
         try{
             PNChannelGroupsAllChannelsResult r = pubNub.listChannelsForChannelGroup().channelGroup(username).sync();
             if(r.getChannels().size() == 0)return true;
@@ -290,16 +283,14 @@ public class BackgroundService extends Service
 
     @Override
     public void onDestroy(){
-        pubNub.stop();
+        pubNub.disconnect();
         unregisterReceiver(receiver);
         super.onDestroy();
     }
 
-    public static boolean hasInternetConnection()
-    {
+    public static boolean hasInternetConnection(){
         Runtime runtime = Runtime.getRuntime();
-        try
-        {
+        try{
             Process ipProcess = runtime.exec("/system/bin/ping -c 1 8.8.8.8");
             int     exitValue = ipProcess.waitFor();
             return (exitValue == 0);
@@ -321,8 +312,7 @@ public class BackgroundService extends Service
         void update(Message message);
     }
 
-    public void showNotification(Message message)
-    {
+    public void showNotification(Message message){
         String channel = message.getChannelName();
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)

@@ -1,7 +1,6 @@
 package com.mohamedfadiga.nubchat.message;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import  com.google.gson.*;
 import java.util.Calendar;
 import java.util.TimeZone;
 
@@ -16,8 +15,7 @@ public class Message
     private int status;
     private String channelName;
 
-    public Message()
-    {
+    public Message(){
         Calendar calendar =Calendar.getInstance(TimeZone.getTimeZone("UTC"));
         timetoken = calendar.getTimeInMillis()*10000;
         text = "";
@@ -38,8 +36,7 @@ public class Message
                 c1.get(Calendar.DAY_OF_MONTH) == c2.get(Calendar.DAY_OF_MONTH));
     }
 
-    public String getTimeLabel()
-    {
+    public String getTimeLabel(){
         String time = "";
         Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
         calendar.setTimeInMillis(timetoken / 10000);
@@ -61,24 +58,16 @@ public class Message
         return time;
     }
 
-    public String toString() {
-        String result = "";
-        try
-        {
-            JSONObject j = new JSONObject();
-            j.put("channelName",channelName);
-            j.put("sender",sender);
-            j.put("type",""+type);
-            j.put("id",""+id);
-            j.put("text",text);
-            j.put("timetoken",timetoken);
-            if(type == 1 || type == 2)j.put("url",url);
-            else if(type == 3)j.put("latlon",latLon);
-            result = j.toString(4);
-        }
-        catch (JSONException e) {e.printStackTrace();}
-        return result;
-
+    public JsonObject toJson() {
+        JsonObject j = new JsonObject();
+        j.addProperty("channelName",channelName);
+        j.addProperty("sender",sender);
+        j.addProperty("type", type);
+        j.addProperty("text",text);
+        j.addProperty("timetoken",timetoken);
+        if(type == 1 || type == 2)j.addProperty("url",url);
+        else if(type == 3)j.addProperty("latlon",latLon);
+        return j;
     }
 
     public String getChannelName() {

@@ -2,6 +2,7 @@ package com.mohamedfadiga.nubchat.channel;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.util.Pair;
 import android.view.LayoutInflater;
@@ -17,20 +18,18 @@ import com.mohamedfadiga.nubchat.message.Message;
 
 import java.util.ArrayList;
 
-
-public class ChannelListAdapter extends ArrayAdapter<Pair<Channel,Message>>
-{
+public class ChannelListAdapter extends ArrayAdapter<Pair<Channel,Message>>{
     public ChannelListAdapter(Context context, int textViewResourceId, ArrayList<Pair<Channel,Message>> channels){
         super(context, textViewResourceId, channels);
     }
 
+    @NonNull
     @Override
-    public View getView(int position, View convertView, ViewGroup parent)
+    public View getView(int position, View convertView,@NonNull ViewGroup parent)
     {
         ViewHolder holder;
 
-        if (convertView == null)
-        {
+        if (convertView == null){
             LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.row_channel, parent, false);
             holder = new ViewHolder(convertView);
@@ -41,8 +40,7 @@ public class ChannelListAdapter extends ArrayAdapter<Pair<Channel,Message>>
         Pair<Channel, Message> item = getItem(position);
         holder.channelName.setText(item.first.getName());
         Message message = item.second;
-        if(message != null)
-        {
+        if(message != null){
             String sender = (item.second.getType() == 1 ?message.getSender()+": " :"");
             if(message.getStatus() == Message.RECEIVED_ME) {
                 holder.lastMessage.setTextColor(ContextCompat.getColor(getContext(), R.color.magicBlue));
@@ -51,8 +49,7 @@ public class ChannelListAdapter extends ArrayAdapter<Pair<Channel,Message>>
             holder.lastMessage.setText(sender + message.getText());
             holder.lastMsgTime.setText(message.getTimeLabel());
         }
-        else
-        {
+        else{
             holder.lastMessage.setText("");
             holder.lastMsgTime.setText("");
         }
@@ -72,8 +69,7 @@ public class ChannelListAdapter extends ArrayAdapter<Pair<Channel,Message>>
         private ImageView channelIcon;
         private TextView channelName, lastMessage, lastMsgTime;
 
-        private ViewHolder(View v)
-        {
+        private ViewHolder(View v){
             channelIcon = (ImageView) v.findViewById(R.id.channelIcon);
             channelName = (TextView) v.findViewById(R.id.channelName);
             lastMessage = (TextView) v.findViewById(R.id.lastMessage);

@@ -1,6 +1,7 @@
 package com.mohamedfadiga.nubchat.message;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,13 +23,12 @@ public class MessageListAdapter extends ArrayAdapter<Message>
         this.myChannel = myChannel;
     }
 
+    @NonNull
     @Override
-    public View getView(int position, View convertView, ViewGroup parent)
-    {
+    public View getView(int position, View convertView,@NonNull ViewGroup parent){
         ViewHolder holder;
 
-        if (convertView == null)
-        {
+        if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.row_message, parent, false);
             holder = new ViewHolder(convertView);
@@ -38,14 +38,12 @@ public class MessageListAdapter extends ArrayAdapter<Message>
 
         Message message = getItem(position);
         boolean sent = message.getSender().equals(myChannel);
-        if(sent)
-        {
+        if(sent){
             holder.layout.setGravity(Gravity.END);
             holder.sender.setVisibility(View.GONE);
             holder.sender.setText("");
         }
-        else
-        {
+        else{
             holder.layout.setGravity(Gravity.START);
             holder.sender.setVisibility(View.VISIBLE);
             holder.sender.setText(message.getSender());
@@ -58,14 +56,12 @@ public class MessageListAdapter extends ArrayAdapter<Message>
     }
 
 
-    private class ViewHolder
-    {
+    private class ViewHolder{
         TextView sender, content, time;
         LinearLayout layout;
         ImageView status;
 
-        ViewHolder(View v)
-        {
+        ViewHolder(View v){
             sender = (TextView) v.findViewById(R.id.senderTextView);
             content = (TextView) v.findViewById(R.id.contentTextView);
             time = (TextView) v.findViewById(R.id.timeTextView);

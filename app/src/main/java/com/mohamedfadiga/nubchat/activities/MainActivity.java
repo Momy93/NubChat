@@ -28,8 +28,8 @@ import com.mohamedfadiga.nubchat.R;
 import com.mohamedfadiga.nubchat.services.ServiceBinder;
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements BackgroundService.ServiceCallbacks
-{
+public class MainActivity extends AppCompatActivity implements BackgroundService.ServiceCallbacks{
+
     private ListView listView;
     private DatabaseHelper db;
     private ArrayList<Pair<Channel, Message>> channels;
@@ -38,8 +38,7 @@ public class MainActivity extends AppCompatActivity implements BackgroundService
     private String username;
 
     @Override
-    protected void onResume()
-    {
+    protected void onResume(){
         super.onResume();
         db = DatabaseHelper.getInstance(MainActivity.this);
         new Thread(new Runnable(){
@@ -50,10 +49,8 @@ public class MainActivity extends AppCompatActivity implements BackgroundService
         }).start();
     }
 
-
     @Override
-    protected void onCreate(Bundle b)
-    {
+    protected void onCreate(Bundle b){
         super.onCreate(b);
         setContentView(R.layout.activity_main);
         Intent i= new Intent(this, BackgroundService.class);
@@ -73,10 +70,14 @@ public class MainActivity extends AppCompatActivity implements BackgroundService
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Channel channel = ((ChannelListAdapter) listView.getAdapter()).getItem(position).first;
-                Intent intent  = new Intent(getApplicationContext(), ChatActivity.class);
-                intent.putExtra("channel", channel.getName());
-                startActivity(intent);
+                Pair<Channel,Message> p = ((ChannelListAdapter) listView.getAdapter()).getItem(position);
+                if(p != null){
+                    Channel channel = p.first;
+                    Intent intent  = new Intent(getApplicationContext(), ChatActivity.class);
+                    intent.putExtra("channel", channel.getName());
+                    startActivity(intent);
+                }
+
             }
         });
 
@@ -97,8 +98,7 @@ public class MainActivity extends AppCompatActivity implements BackgroundService
                                 final Channel channel = new Channel(name.getText().toString());
                                 channel.setType(publicRadio.isChecked() ? Channel.PUBLIC : Channel.PRIVATE);
                                 String query = "SELECT * FROM channels WHERE name = '" +channel.getName() +"'";
-                                if (db.getChannel(query) == null)
-                                {
+                                if (db.getChannel(query) == null){
                                     dialog.dismiss();
                                     final ProgressDialog loadingDialog;
                                     loadingDialog = new ProgressDialog(MainActivity.this);

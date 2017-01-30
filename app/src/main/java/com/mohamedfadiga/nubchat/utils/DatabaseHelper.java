@@ -7,7 +7,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Pair;
-import com.fasterxml.jackson.databind.JsonNode;
+import com.google.gson.JsonObject;
 import com.mohamedfadiga.nubchat.channel.Channel;
 import com.mohamedfadiga.nubchat.message.Message;
 import java.util.ArrayList;
@@ -303,7 +303,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
         }
     }
 
-    public Message saveMessage(JsonNode n, String channelName, long timetoken)
+    public Message saveMessage(JsonObject n, String channelName, long timetoken)
     {
         Message message = new Message();
         Channel channel = getChannel("SELECT * FROM "+ TABLE_CHANNELS +" WHERE " + KEY_CHANNEL_NAME + " = '" +channelName+"'");
@@ -312,14 +312,14 @@ public class DatabaseHelper extends SQLiteOpenHelper
             addChannel(channel);
         }
         message.setChannelName(channelName);
-        message.setSender(n.get("sender").asText());
+        message.setSender(n.get("sender").getAsString());
         message.setStatus(Message.RECEIVED_ME);
-        int type = n.get("type").asInt();
+        int type = n.get("type").getAsInt();
         message.setType(type);
-        message.setText(n.get("text").asText());
+        message.setText(n.get("text").getAsString());
         message.setTimetoken(timetoken);
-        if(type==Message.IMAGE || type == Message.FILE)message.setUrl(n.get("url").asText());
-        else if (type == Message.GMAPS)message.setLatLon(n.get("latlon").asText());
+        if(type==Message.IMAGE || type == Message.FILE)message.setUrl(n.get("url").getAsString());
+        else if (type == Message.GMAPS)message.setLatLon(n.get("latlon").getAsString());
         saveMessage(message);
         return message;
     }
