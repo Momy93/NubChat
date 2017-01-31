@@ -1,4 +1,4 @@
-package com.mohamedfadiga.nubchat.message;
+package com.doingstudio.nubchat.message;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -10,7 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import com.mohamedfadiga.nubchat.R;
+import com.doingstudio.nubchat.R;
 import java.util.ArrayList;
 
 public class MessageListAdapter extends ArrayAdapter<Message>

@@ -1,4 +1,4 @@
-package com.mohamedfadiga.nubchat.utils;
+package com.doingstudio.nubchat.utils;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -8,8 +8,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Pair;
 import com.google.gson.JsonObject;
-import com.mohamedfadiga.nubchat.channel.Channel;
-import com.mohamedfadiga.nubchat.message.Message;
+import com.doingstudio.nubchat.channel.Channel;
+import com.doingstudio.nubchat.message.Message;
 import java.util.ArrayList;
 
 public class DatabaseHelper extends SQLiteOpenHelper

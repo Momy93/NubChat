@@ -1,8 +1,8 @@
-package com.mohamedfadiga.nubchat.pubnubcallbacks;
+package com.doingstudio.nubchat.pubnubcallbacks;
 
 import com.google.gson.JsonObject;
-import com.mohamedfadiga.nubchat.services.BackgroundService;
-import com.mohamedfadiga.nubchat.utils.DatabaseHelper;
+import com.doingstudio.nubchat.services.BackgroundService;
+import com.doingstudio.nubchat.utils.DatabaseHelper;
 import com.pubnub.api.PubNub;
 import com.pubnub.api.callbacks.SubscribeCallback;
 import com.pubnub.api.models.consumer.PNStatus;

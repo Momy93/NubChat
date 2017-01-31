@@ -1,4 +1,4 @@
-package com.mohamedfadiga.nubchat.services;
+package com.doingstudio.nubchat.services;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -19,13 +19,13 @@ import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 import android.widget.Toast;
-import com.mohamedfadiga.nubchat.utils.DatabaseHelper;
-import com.mohamedfadiga.nubchat.R;
-import com.mohamedfadiga.nubchat.activities.ChatActivity;
-import com.mohamedfadiga.nubchat.channel.Channel;
-import com.mohamedfadiga.nubchat.message.Message;
-import com.mohamedfadiga.nubchat.pubnubcallbacks.HistoryCallback;
-import com.mohamedfadiga.nubchat.pubnubcallbacks.MySubscribeCallback;
+import com.doingstudio.nubchat.utils.DatabaseHelper;
+import com.doingstudio.nubchat.R;
+import com.doingstudio.nubchat.activities.ChatActivity;
+import com.doingstudio.nubchat.channel.Channel;
+import com.doingstudio.nubchat.message.Message;
+import com.doingstudio.nubchat.pubnubcallbacks.HistoryCallback;
+import com.doingstudio.nubchat.pubnubcallbacks.MySubscribeCallback;
 import com.pubnub.api.PNConfiguration;
 import com.pubnub.api.PubNub;
 import com.pubnub.api.PubNubException;

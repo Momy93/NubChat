@@ -1,4 +1,4 @@
-package com.mohamedfadiga.nubchat.activities;
+package com.doingstudio.nubchat.activities;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -11,13 +11,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import com.mohamedfadiga.nubchat.channel.Channel;
-import com.mohamedfadiga.nubchat.services.BackgroundService;
-import com.mohamedfadiga.nubchat.utils.DatabaseHelper;
-import com.mohamedfadiga.nubchat.message.Message;
-import com.mohamedfadiga.nubchat.message.MessageListAdapter;
-import com.mohamedfadiga.nubchat.R;
-import com.mohamedfadiga.nubchat.services.ServiceBinder;
+import com.doingstudio.nubchat.channel.Channel;
+import com.doingstudio.nubchat.services.BackgroundService;
+import com.doingstudio.nubchat.utils.DatabaseHelper;
+import com.doingstudio.nubchat.message.Message;
+import com.doingstudio.nubchat.message.MessageListAdapter;
+import com.doingstudio.nubchat.R;
+import com.doingstudio.nubchat.services.ServiceBinder;
 import java.util.ArrayList;
 
 public class ChatActivity extends AppCompatActivity implements BackgroundService.ServiceCallbacks

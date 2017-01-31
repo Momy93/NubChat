@@ -1,4 +1,4 @@
-package com.mohamedfadiga.nubchat;
+package com.doingstudio.nubchat;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

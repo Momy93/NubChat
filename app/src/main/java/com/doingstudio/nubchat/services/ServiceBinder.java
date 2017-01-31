@@ -1,4 +1,4 @@
-package com.mohamedfadiga.nubchat.services;
+package com.doingstudio.nubchat.services;
 
 import android.app.Activity;
 import android.content.ComponentName;

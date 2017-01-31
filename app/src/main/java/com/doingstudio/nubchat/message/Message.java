@@ -1,4 +1,4 @@
-package com.mohamedfadiga.nubchat.message;
+package com.doingstudio.nubchat.message;
 
 import  com.google.gson.*;
 import java.util.Calendar;

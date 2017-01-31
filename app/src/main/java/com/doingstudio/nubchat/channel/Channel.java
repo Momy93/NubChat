@@ -1,7 +1,4 @@
-package com.mohamedfadiga.nubchat.channel;
-
-import org.json.JSONException;
-import org.json.JSONObject;
+package com.doingstudio.nubchat.channel;
 
 
 public class Channel

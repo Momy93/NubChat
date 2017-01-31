@@ -1,4 +1,4 @@
-package com.mohamedfadiga.nubchat.channel;
+package com.doingstudio.nubchat.channel;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -13,8 +13,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
-import com.mohamedfadiga.nubchat.R;
-import com.mohamedfadiga.nubchat.message.Message;
+import com.doingstudio.nubchat.R;
+import com.doingstudio.nubchat.message.Message;
 
 import java.util.ArrayList;
 

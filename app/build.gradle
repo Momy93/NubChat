@@ -19,9 +19,9 @@ android {
     defaultConfig {
         applicationId "com.mohamedfadiga.nubchat"
         minSdkVersion 16
-        targetSdkVersion 24
-        versionCode 1
-        versionName "1.0"
+        targetSdkVersion 25
+        versionCode 2
+        versionName "1.1"
     }
     buildTypes {
         release {
