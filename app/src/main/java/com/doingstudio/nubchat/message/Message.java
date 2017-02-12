@@ -8,8 +8,8 @@ public class Message
 {
     public static final int TEXT = 0, IMAGE = 1, FILE =2 , GMAPS = 3;
     public static final int SENDING = 0, SENT = 1, RECEIVED_RECIPIENT = 2, READ_RECIPIENT = 3, RECEIVED_ME = 4, READ_ME = 5;
-    private int type;
-    private String text, sender, url, latLon;
+    private int type = 0;
+    private String text="", sender="Unknown", url, latLon="0,0";
     private long timetoken;
     private long id;
     private int status;
@@ -40,14 +40,12 @@ public class Message
         String time = "";
         Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
         calendar.setTimeInMillis(timetoken / 10000);
-        if(sameDate(calendar, Calendar.getInstance()))
-        {
+        if(sameDate(calendar, Calendar.getInstance())){
             time += calendar.get(Calendar.HOUR_OF_DAY);
             int minute = calendar.get(Calendar.MINUTE);
             time += ":"+(minute < 10?"0":"")+minute;
         }
-        else
-        {
+        else{
             int year = calendar.get(Calendar.YEAR);
             int month = calendar.get(Calendar.MONTH) + 1;
             int day = calendar.get(Calendar.DAY_OF_MONTH);
@@ -77,23 +75,15 @@ public class Message
     public long getId() {return id;}
     public void setId(long id) {this.id = id;}
     public void setStatus(int status) {this.status = status;}
-    public int getStatus() {return status;}
+    public int  getStatus() {return status;}
     public void setTimetoken(long timetoken){this.timetoken = timetoken;}
     public void setSender(String sender) {this.sender = sender;}
     public void setText(String text) {this.text = text;}
     public void setType(int type){this.type = type;}
     public long getTimetoken(){return timetoken;}
-    public String getLatLon()
-    {
-        return  latLon;
-    }
-    public void  setLatLon(String latLon)
-    {
-        this.latLon = latLon;
-    }
-    public void setUrl(String url) {
-        this.url = url;
- }
+    public String getLatLon(){return  latLon;}
+    public void  setLatLon(String latLon){this.latLon = latLon;}
+    public void setUrl(String url) {this.url = url;}
     public int getType() {return type;}
     public String getUrl() {return url;}
     public String getText()

@@ -319,7 +319,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
         message.setText(n.get("text").getAsString());
         message.setTimetoken(timetoken);
         if(type==Message.IMAGE || type == Message.FILE)message.setUrl(n.get("url").getAsString());
-        else if (type == Message.GMAPS)message.setLatLon(n.get("latlon").getAsString());
+        else if (type == Message.GMAPS && n.get("latlon") != null)message.setLatLon(n.get("latlon").getAsString());
         saveMessage(message);
         return message;
     }

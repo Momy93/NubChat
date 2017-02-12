@@ -36,7 +36,7 @@ public class ChatActivity extends AppCompatActivity implements BackgroundService
         super.onResume();
         db = DatabaseHelper.getInstance(ChatActivity.this);
         messages = db.getChannelMessages(channel);
-        messageListAdapter =  new MessageListAdapter(this, R.layout.row_message, messages, username);
+        messageListAdapter =  new MessageListAdapter(this, R.layout.row_text_message, messages, username);
         listView = (ListView)findViewById(R.id.messagesListView);
         listView.setAdapter(messageListAdapter);
         listView.setSelection(messageListAdapter.getCount() - 1);
