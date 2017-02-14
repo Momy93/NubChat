@@ -1,21 +1,43 @@
-
 ## Introduction
-Nubchat is an Adroid app that let you communicate with other android smartphones, or dev boards like Arduino, RaspberryPi and all the devices that support PubNub API's.<br>
+Nubchat is an Android app that let you communicate with other android smartphones, or dev boards like Arduino, RaspberryPi and all the devices that support PubNub API's.<br>
 To use this app you'll need a subcribe key and publish key from  https://pubnub.com, and enable "STORAGE & PLAYBACK" AND "STREAM CONTROLLER".<br>
 It's available on Google play store https://play.google.com/store/apps/details?id=com.mohamedfadiga.nubchat
 
 
 ## Usage
 
-There are many things you can do with it. The main purpose is that you have some devices that will communicate, and do actions or give you informations about themeselves when you write to them.
+You can sent two type of message from your devices. All message are in JSON format:<br>
+
+- Simple text message
+  
+{
+  "sender": "YourDeviceName",
+  "type": 0,
+  "text": "Dattebane!"
+}
+
+
+- Location message
+
+{
+  "sender": "YourDeviceName",
+  "type": 3,
+  "text": "Here I am!",
+  "latlon":"45.321489,11.369874"
+}
+
+Where latlon represents GPS coordinates: latitude,longitude
+
+
+There are many things you can do with this app. The main purpose is that you have some devices that will communicate, and do actions or give you informations about themselves when you write to them.
 You can find an example here  https://www.hackster.io/Momy93/nubchat-chat-app-for-devices-and-humans-with-pubnub-bad66c
 
 <br>
 ![description](https://raw.githubusercontent.com/pluralsight/guides/master/images/f40d498e-9a95-410e-b4ab-d82c2c38f4d5.jpg)
 
+![description](https://lh3.googleusercontent.com/-8e_67MGcXOKUttRyn_7Szk2iqQFR-maWsK87hbLhpLKIZUwBWl-VXX3A7SDuliR5g=h900-rw)
 
 ![description](https://raw.githubusercontent.com/pluralsight/guides/master/images/1d94a6ce-b693-4248-a9e3-4f413cbac804.jpg)
-
 
 ![description](https://raw.githubusercontent.com/pluralsight/guides/master/images/79d625a5-3520-4677-a8bb-f0dd0b23ed49.jpg)
 
@@ -78,26 +100,43 @@ when we send a message the app use pubnub publish function.
 
 A  message sent by the app has the following structure:
 
-```{
+```
+{
   "channelName": "RaspberryPi",
   "sender": "Bob",
   "type": 0,
   "text": "Dattebayo!",
   "timetoken": 14858572070330000
-}```
+}
 
-Type for now is always 0 (pure text message).
+```
+
+Type for now can be 0 (pure text message) or 3 (location message).
 in the Message class you can see future types that will be available:
 
-```public static final int TEXT = 0, IMAGE = 1, FILE =2 , GMAPS = 3;```
+```
+public static final int TEXT = 0, IMAGE = 1, FILE =2 , GMAPS = 3;
 
-When sending a message to the app from your device, you just need 3 field:
+```
 
-```{
+When sending a message to the app from your device, you can have two type of mesage:
+
+```
+{
   "sender": "RaspberryPi",
   "type": 0,
   "text": "Dattebane!"
-}```
+}
+
+
+{
+  "sender": "RaspberryPi",
+  "type": 3,
+  "text": "Here I am!",
+  "latlon":"45.321489,11.369874"
+}
+
+```
 
 
 When RaspberyPi wants to send me a message, it will send it to "Bob" channel, and as I am a subscriber, I will receive it.
